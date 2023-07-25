@@ -1,0 +1,260 @@
+//====================================================================================================
+
+//====================================================================================================
+
+@keyframes slidein {
+	from {
+	  
+	}
+  
+	to {
+	  margin-top: 0px;
+	}
+  }
+@keyframes slidein-mobile {
+	from {
+
+	}
+  
+	to {
+	  bottom: 78px;
+	}
+  }
+
+.header {
+	z-index: 20;
+	&__wrapper{
+		background-color: #fff;
+		position: fixed;
+		width: 100%;
+  }
+	&__container{
+		padding: 31px 15px;
+		height: 45px;
+  }
+	&__body{
+		display: flex;
+		justify-content: space-between;
+		@media (max-width:$mobileSmall){
+			 margin-left: -45px; 
+		}
+  }
+	&__logo{
+		flex: 0 1 891px;
+		@media (max-width:$mobileSmall){
+			 transform: scale(0.65); 
+		}
+  }
+	&__button-container {
+		
+	}
+	&__button{
+		padding: 6px 24px;
+		justify-content: center;
+		align-items: center;
+		border-radius: 32px;
+		background: #620F5F;
+		color: #fff;
+		height: 44px;
+		width: 130px;
+		display: flex;
+		flex-direction: column;
+		font-size: 16px;
+		margin-right: 52px;
+		transition: all 0.3s ease 0s;
+		.menu-open & {
+			display: none;
+		}
+		@media (any-hover: hover){
+			&:hover{
+				opacity: 30%;
+			}
+		}
+		@media (max-width:$mobileSmall){
+			 padding-left: 10px;
+			 padding-right: 10px; 
+		}
+  }
+  	&__button-text {
+		white-space: nowrap;
+	}
+	&__menu{
+		
+  }
+  }
+  @media (max-width: 950px) {
+	.header__wrapper{
+		bottom: 0;
+	.header__button {
+		display: block !important;
+		padding-top: 10px;
+	}
+  }
+  @media (max-width:$mobileSmall){
+	.header__button {
+		margin-right: 10px;
+		margin-left: -35px;
+	} 
+  }
+  }
+  .menu {
+	
+	&__icon{
+		
+  }
+	&__icon-body{
+		
+		.menu-open & {
+			.wave-top {
+				translate: 0 16px;
+				
+			}
+
+			.wave-bot {
+				translate: 0 -16px;
+				
+			}
+			
+		}
+  }
+	&__icon-wave{
+		transition: all 0.3s ease 0s;
+  }
+	&__body{
+		display: flex;
+		flex-wrap: nowrap;
+		flex-direction: row;
+		position: relative;
+		z-index: 20;
+		height: 667px;
+		left: -15px;
+		margin-top: -800px;
+		@media (max-width: 950px) {
+			left: -15px;
+			width: 100vw;
+			margin-top: -670px;
+			bottom: -800px;
+			background-color: #fff;
+		  }
+		.menu-open & {
+			
+			@media (min-width: 950px) {
+				animation: 1s 1 slidein forwards;
+				
+			}
+			@media (max-width: 950px) {
+				animation: 1s 1 slidein-mobile forwards;
+			  }
+		}
+
+  }
+	&__list{
+		padding-top: 99px;
+		z-index: 20;
+  }
+	&__item{
+		margin-left: 15px;
+		margin-top: 55px;
+		height: 52px;
+		font-family: "Merriweather";
+		&:first-child{
+			color: #771373;
+		}
+  }
+	&__link{
+  }
+	&__background {
+
+		img{
+			z-index: 1;
+		}
+		background-color: #fff;
+		position: relative;
+		height: 680px;
+		left: 50%;
+		transform: translate(-50%);
+		margin-left: -100px;
+		margin-top: 0;
+		z-index: 1;
+		@media (max-width: 1170px) {
+			box-sizing: border-box;
+			overflow: hidden;
+			width: calc(100vw + 100px);
+			margin-right: -100px;
+			justify-content: start;
+		}
+		@media (max-width: 950px) {
+			top: 0px;
+		}
+		.menu-open & {
+		}
+	}
+  }
+  .icon {
+	&-menu{
+  
+  }
+  }
+  .wave {
+	&-top{
+  
+  }
+	&-bot{
+  
+  }
+  	
+  }
+
+
+
+
+//Burger
+/*
+.icon-menu {
+	display: none;
+	@media (max-width: $mobile) {
+		display: block;
+		position: relative;
+		width: rem(30);
+		height: rem(18);
+		cursor: pointer;
+		z-index: 5;
+		span,
+		&::before,
+		&::after {
+			content: "";
+			transition: all 0.3s ease 0s;
+			right: 0;
+			position: absolute;
+			width: 100%;
+			height: rem(2);
+			background-color: #000;
+		}
+		&::before {
+			top: 0;
+		}
+		&::after {
+			bottom: 0;
+		}
+		span {
+			top: calc(50% - rem(1));
+		}
+		.menu-open & {
+			span {
+				width: 0;
+			}
+			&::before,
+			&::after {
+			}
+			&::before {
+				top: calc(50% - rem(1));
+				transform: rotate(-45deg);
+			}
+			&::after {
+				bottom: calc(50% - rem(1));
+				transform: rotate(45deg);
+			}
+		}
+	}
+}
+*/

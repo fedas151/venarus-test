@@ -1,0 +1,582 @@
+@use "sass:math";
+
+// Подключение миксинов ===========================================================================================================================================================================================================================================================================
+@import "base/mixins";
+
+// Подключение шрифтов ===========================================================================================================================================================================================================================================================================
+//&display=swap - добавить при подключении через плагин
+
+// Подключить если есть локальные файлы шрифтов
+//@import "fonts/fonts";
+
+// Подключение иконочных шрифтов ==============================================================================================================================================================================================================================================================================
+// Подключить если есть файл иконочного шрифта
+//@import "fonts/icons";
+
+// Шрифт по умолчанию ==============================================================================================================================================================================================================================================================================
+$fontFamily: "Roboto";
+$fontSize: rem(14); // где 14(px) - размер шрифта по умолчанию из макета
+
+// Основные цвета
+$mainColor: #000; // Цвет шрифта по умолчанию
+
+// НАСТРОЙКИ ===============================================================================================================================================================================================================================================================================================
+// Минимальная ширина страницы
+$minWidth: 320;
+// Ширина полотна (макета)
+$maxWidth: 1440;
+// Ширина ограничивающего контейнера (0 = нет ограничения)
+$maxWidthContainer: 1170;
+// Общий отступ у контейнера
+// (30 = по 15px слева и справа, 0 = нет отступа)
+$containerPadding: 15;
+
+// Ширина срабатывания первого брейкпоинта
+$containerWidth: $maxWidthContainer + $containerPadding;
+
+// Брейк-поинты
+$pc: em($containerWidth); // ПК, ноутбуки, некоторые планшеты в горизонтальном положении
+$tablet: em(991.98); // Планшеты, некоторые телефоны в горизонтальном положении
+$mobile: em(767.98); // Телефоны L
+$mobileSmall: em(479.98); // Телефоны S
+
+// Тип адаптива:
+// 1 = отзывчивость (у контейнера нет брейкпоинтов),
+// 2 = по брейк-поинтам (контейнер меняет свою ширину по брейк-поинтам)
+$responsiveType: 1;
+
+// Обнуление и общие параметры ============================================================================================================================================================================================== =============================================================================================== ===============================================================================================
+@import "base/null";
+
+body {
+	// Скролл заблокирован
+	.lock & {
+		overflow: hidden;
+		touch-action: none;
+	}
+	// Сайт загружен
+	.loaded & {
+	}
+}
+// Оболочка ============================================================================================================================================================================================================================================================================================================================================================================================================================================
+.wrapper {
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	// Прижимаем footer
+	> main {
+		flex: 1 1 auto;
+	}
+	// Фикс для слайдеров
+	> * {
+		min-width: 0;
+	}
+}
+// Ограничивающий контейнер ======================================================================================================================================================================================================================
+
+/*
+(i) Стили будут применяться ко 
+всем классам содержащим *__container
+Например header__container, main__container и т.д.
+Снипет (HTML): cnt
+*/
+@if ($responsiveType==1) {
+	// Отзывчивая
+	[class*="__container"] {
+		@if ($maxWidthContainer>0) {
+			max-width: rem($maxWidthContainer);
+			box-sizing: content-box;
+			margin: 0 auto;
+		}
+		@if ($containerPadding>0) {
+			padding: 0 rem(math.div($containerPadding, 2));
+		}
+	}
+} @else {
+	// По брейк-поинтам
+	[class*="__container"] {
+		margin: 0 auto;
+		@if ($maxWidthContainer>0) {
+			max-width: rem($maxWidthContainer);
+			box-sizing: content-box;
+		} @else {
+			@if ($containerPadding>0) {
+				padding: 0 rem(math.div($containerPadding, 2));
+			}
+		}
+		@media (max-width: $pc) {
+			max-width: rem(970);
+		}
+		@media (max-width: $tablet) {
+			max-width: rem(750);
+		}
+		@media (max-width: $mobile) {
+			max-width: none;
+			@if ($containerPadding>0 and $maxWidthContainer>0) {
+				padding: 0 rem(math.div($containerPadding, 2));
+			}
+		}
+	}
+}
+
+// Подключение базовых стилей, шаблонов (заготовок) и вспомогательных  классов
+// Для подключения/отключения конкретных стилей смотри base.scss
+@import "base";
+
+// Подключение стилей общих элементов проекта
+@import "common";
+
+// Подключение стилей отдельных блоков
+@import "header";
+@import "footer";
+
+// Подключение стилей отдельных страниц
+@import "home";
+
+
+.button{
+
+}
+
+.page {
+	
+  &__main-section{
+	margin-top: 106px;
+	@media (max-width:$mobile){
+		 margin-bottom: 106px; 
+	}
+}
+  &__container{
+	padding-left: 15px;
+	padding-right: 15px;
+}
+  &__main-items{
+	display: flex;
+	overflow: hidden;
+	@media (max-width: 950px) {
+	 max-height: 680px;
+	}
+	@media (max-width:$mobileSmall){
+		 max-height: 550px; 
+	}
+  }
+  &__main-text{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+  &__main-title{
+	flex: 1 1 427px;
+	text-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+	font-family: Merriweather;
+	font-size: 55px;
+	font-weight: 700;
+	width: 360px;
+	margin-top: 31px;
+	@media (max-width:$mobileSmall){
+		 font-size: 36px; 
+	}
+}
+  &__main-buttons{
+
+}
+  &__main-button{
+	transition: all 0.3s ease 0s;
+	@media (any-hover: hover){
+		&:hover{
+			opacity: 30%;
+		}
+	}
+	&:not(:first-child) {
+		margin-top: 32px;
+	}
+}
+  &__main-link{
+		position: relative;
+		top: 21px;
+		left: 30px;
+		color: #590D56;
+		font-size: 18px;
+		border-bottom: 1px solid #590D56;
+		text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+}
+
+}
+
+
+.none{
+	display: none !important;
+}
+
+
+.slider {
+  &-wrapper{
+	margin-left: 200px;
+	margin-top: 240px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+  &-nav{
+	display: flex;
+	margin-left: 43px;
+	@media (max-width:$mobile){
+		 margin-left: 90px; 
+	}
+}
+  &-buttons-container {
+	margin-left: 250px;
+	height: 166px;
+  }
+  &-button-prev{
+	
+	border-radius: 50%;
+	transition: all 0.3s ease 0s;
+	@media (any-hover: hover){
+		&:hover{
+			opacity: 30%;
+			cursor: pointer;
+		}
+	}
+	@media (min-width:$mobile){
+		background-color: #820e7e;
+	}
+}
+  &-button-next{
+	margin-left: 30px;
+	border-radius: 50%;
+	transition: all 0.3s ease 0s;
+	@media (any-hover: hover){
+		&:hover{
+			opacity: 30%;
+			cursor: pointer;
+		}
+	}
+	@media (min-width:$mobile){
+		background-color: #820e7e;
+		
+	}
+	@media (max-width:$mobile){
+		 margin-left: 15px; 
+	}
+}
+  &-button-buy{
+	color: #fff;	
+	font-size: 20px;
+	right: 4px;
+	position: relative;
+	top: 51px;
+	padding: 21px 80px 25px 80px;
+	border: 1px solid #fff;
+	border-radius: 33.5px;
+	transition: all 0.3s ease 0s;
+	@media (any-hover: hover){
+		&:hover{
+			opacity: 30%;
+		}
+	}
+	@media (min-width:$mobile){
+		background-color: #820e7e;
+	}
+	@media (max-width:$mobile){
+		color: #5B0E58;
+		border: 1px solid #5B0E58;
+	}
+	
+	@media (max-width:329px){
+		padding-left: 40px;
+		padding-right: 40px;
+	}
+  }
+}
+
+@media (max-width: 1100px) {
+	[class*="-slide"] {
+		transform: scale(0.8);
+	}
+	.slider {
+		&-wrapper{
+		  margin-left: 120px;
+		  margin-top: 180px;
+		}
+		&-buttons-container {
+			margin-left: 180px;
+		}
+		&-button-buy{
+			right: 5px;
+		  }
+	}
+}
+
+@media (max-width: 950px) {
+	
+	.page {
+		&__main-section{
+		  margin-top: 0;
+	  }
+	}
+	.desktop {
+		display: none;
+	}
+	[class*="-slide"] {
+		transform: scale(0.7);
+	}
+	.slider {
+		&-wrapper{
+		  margin-left: 50px;
+		  margin-top: 130px;
+		}
+		&-buttons-container {
+			margin-left: 110px;
+		}
+		
+	}
+}
+
+@media (max-width: 850px) {
+
+	[class*="-slide"] {
+		transform: scale(0.6);
+	}
+	.slider {
+		&-wrapper{
+		  margin-left: 15px;
+		  margin-top: 90px;
+		}
+		&-buttons-container {
+			margin-left: 90px;
+		}
+		
+	}
+}
+
+
+
+.first {
+  &-slide{
+	position: absolute;
+	transition: all 0.3s ease 0s;
+
+	.first-state & {
+		transform: translate(-50%, -40%) scale(.8);
+	}
+	.second-state & {
+		transform: scale(1);
+		z-index: 10;
+	}
+	.third-state & {
+		transform: translate(50%, -40%) scale(.8);
+	}
+
+}	
+}
+.second {
+  &-slide{
+	position: absolute;
+	transition: all 0.3s ease 0s;
+
+	.first-state & {
+		transform: scale(1);
+		z-index: 10;
+	}
+	.second-state & {
+		transform: translate(50%, -40%) scale(.8);
+	}
+	.third-state & {
+		transform: translate(-50%, -40%) scale(.8);
+	}
+
+}
+}
+.third {
+  &-slide{
+	
+	transition: all 0.3s ease 0s;
+	.first-state & {
+		transform: translate(50%, -40%) scale(.8);
+	}
+	.second-state & {
+		transform: translate(-50%, -40%) scale(.8);
+	}
+	.third-state & {
+		transform: scale(1);
+		z-index: 10;
+	}
+}
+}
+.mobile {
+	display: none;
+}
+.desktop {
+	display: block;
+}
+
+@media (max-width:$mobile){
+	.desktop {
+		display: none;
+	}
+	.mobile {
+		display: block;
+	}
+	[class*="-slide"] {
+		transform: scale(0.9);
+	}
+	.page__main-title {
+		flex: 1 1 auto;
+	}
+	.page__main-text {
+		font-size: 36px;
+		max-width: 100%;
+	}
+	.page__main-items {
+		flex-direction: column;
+	}
+	.page__main-buttons {
+		display: none;
+	}
+	.page__main-slider {
+		margin-top: -80px;
+	}
+	.slider-buttons-container {
+		margin-left: 20px;
+		display: flex;
+		justify-content: center;
+	}
+	.first {
+		&-slide{
+		  .first-state & {
+			  transform: translate(-50%, 0) scale(.8);
+			  visibility: hidden;
+		  }
+		  .second-state & {
+			  transform: scale(1);
+			  z-index: 10;
+			  display: block;
+		  }
+		  .third-state & {
+			  transform: translate(50%, 0) scale(.8);
+			  visibility: hidden;
+		  }
+	  
+	  }	
+	  }
+	  .second {
+		&-slide{
+		  .first-state & {
+			  transform: scale(1);
+			  z-index: 10;
+			  display: block;
+		  }
+		  .second-state & {
+			  transform: translate(50%, 0) scale(.8);
+			  visibility: hidden;
+		  }
+		  .third-state & {
+			  transform: translate(-50%, 0) scale(.8);
+			  visibility: hidden;
+		  }
+	  
+	  }
+	  }
+	  .third {
+		&-slide{
+		  
+		  transition: all 0.3s ease 0s;
+		  .first-state & {
+			  transform: translate(50%, 0) scale(.8);
+			  visibility: hidden;
+		  }
+		  .second-state & {
+			  transform: translate(-50%, 0) scale(.8);
+			  visibility: hidden;
+		  }
+		  .third-state & {
+			  transform: scale(1);
+			  z-index: 10;
+			  display: block;
+		  }
+	  }
+	  }
+	  
+}
+@media (max-width:$mobileSmall){
+	[class*="-slide"] {
+		transform: scale(0.7);
+	} 
+	.slider-wrapper {
+		margin-top: 40px;
+	}
+}
+
+@keyframes translateinfinite {
+	100% { transform:translateX(-1000px);  
+	}
+	
+}
+.wave {
+	display: flex;
+	justify-content: center;
+}
+
+.wave-container {
+	position: absolute;
+	max-width: 100vw;
+	height: 853px;
+	top: 100px;
+	z-index: -10;
+	overflow: hidden;
+	
+}
+.page {
+	&__main-wave{
+		position: relative;
+		right: 500px;
+		width: fit-content;
+		overflow: hidden;
+		animation: translateinfinite 100s linear infinite alternate;
+		@media (max-width: 950px) {
+			transform: scale(0.7);
+			right: 1200px;
+		}
+		@media (max-width:$mobile){
+			top: -150px;
+		}
+		@media (max-width:$mobileSmall){
+			top: -280px;  
+		}
+  }
+  }
+
+  .disclaimer {
+	.disclaimer-closed & {
+		display: none;
+	}
+	max-width: 1440px;
+	display: flex;
+	justify-content: space-between;
+	background-color: #F9F9F9;
+	opacity: 0.7;
+	padding: 30px 57px 14px 55px;
+	border-radius: 18px;
+	@media (max-width: 680px){
+		font-size: 12px; 
+	}
+  }
+  .page {
+	
+	&__main-disclaimer{
+		color: #242424;
+		font-size: 34px;
+		font-weight: 300;
+		text-transform: uppercase;
+		line-height: 40px; /* 117.647% */
+		letter-spacing: -1.36px;
+		@media (max-width: 950px) {
+			font-size: 30px;
+		}
+		@media (max-width: 850px) {
+			font-size: 26px;
+		}
+  }
+  }
